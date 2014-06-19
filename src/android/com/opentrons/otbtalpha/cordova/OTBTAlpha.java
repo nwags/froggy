@@ -224,7 +224,7 @@ public class OTBTAlpha extends CordovaPlugin {
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
 
         for (BluetoothDevice device : bondedDevices) {
-        	if(device.getName().endsWith("tron")){
+        	if(device.getName().toLowerCase().contains("tron")){
 	            JSONObject json = new JSONObject();
 	            json.put("name", device.getName());
 	            json.put("address", device.getAddress());
