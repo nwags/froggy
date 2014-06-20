@@ -577,7 +577,7 @@ public class OTBTAlpha extends CordovaPlugin {
 
     private void home(CallbackContext callbackContext){
     	//TODO: home
-    	otbtworker.write("g28.2 x0 y0 z0\n".getBytes());
+    	otbtworker.write("{\"gc\":\"G28.2 X0 Y0 Z0\"}\n".getBytes());
     	
     	callbackContext.success();
     }
