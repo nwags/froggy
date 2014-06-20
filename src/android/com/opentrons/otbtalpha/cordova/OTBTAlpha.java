@@ -28,7 +28,11 @@ import java.util.Set;
 public class OTBTAlpha extends CordovaPlugin {
 
 	//nwags variable
-	public static double pos;
+	public static double posx=0.0;
+	public static double posy=0.0;
+	public static double posz=0.0;
+	public static double posa=0.0;
+	
 	public static double xmax=400.0;
 	public static double ymax=200.0;
 	public static double zmax=200.0;
@@ -425,17 +429,17 @@ public class OTBTAlpha extends CordovaPlugin {
     	String result = "";
     	JSONObject jResult = new JSONObject();
     	if (sr.has("posx"))
-    		pos = sr.getDouble("posx");
-    		jResult.put("x", pos);
+    		posx = sr.getDouble("posx");
+    		jResult.put("x", posx);
 		if (sr.has("posy"))
-			pos = sr.getDouble("posy");
-			jResult.put("y", pos);
+			posy = sr.getDouble("posy");
+			jResult.put("y", posy);
 		if (sr.has("posz"))
-			pos = sr.getDouble("posz");
-			jResult.put("z", pos);
+			posz = sr.getDouble("posz");
+			jResult.put("z", posz);
 		if (sr.has("posa"))
-			pos = sr.getDouble("posa");
-			jResult.put("a", pos);
+			posa = sr.getDouble("posa");
+			jResult.put("a", posa);
 		if (sr.has("stat")){
 			switch (sr.getInt("stat")){
 			case 0:
@@ -476,8 +480,12 @@ public class OTBTAlpha extends CordovaPlugin {
     }
     
     private void jog(CordovaArgs args, CallbackContext callbackContext) throws JSONException {
-    	JSONObject jsonObj = args.getJSONObject(0);
+    	Log.d(TAG, "jog called");
     	
+    	String whatevs = args.getString(0);
+    	whatevs.trim();
+    	JSONObject jsonObj = new JSONObject(whatevs);
+    	Log.d(TAG, "jsonObj: "+jsonObj.toString());
     	if(jsonObj.has("reset")) {
     		LOG.d(TAG, "reset");
     		byte[] rst = {0x18};
@@ -508,27 +516,31 @@ public class OTBTAlpha extends CordovaPlugin {
                 callbackContext.success();
     		}
     	}
-    	double gogo = 0.0;
+    	
     	String gogoStr = "";
     	String gocode = "{\"gc\":\"g90 g0 ";//\"}\n";
-    	if(jsonObj.has("x")) {
-    		gogo = jsonObj.getDouble("x");//*xmax;
-    		gogoStr = "x"+String.valueOf(gogo);
+    	if(jsonObj.has("x")||jsonObj.has("X")) {
+    		Log.d(TAG, "has x");
+    		Log.d(TAG, "and x="+jsonObj.getDouble("x"));
+    		double gox = jsonObj.getDouble("x");//*xmax;
+    		gogoStr = "x"+String.valueOf(gox);
     		gocode+=gogoStr;
     	}
     	if(jsonObj.has("y")) {
-    		gogo = jsonObj.getDouble("y");//*ymax;
-    		gogoStr = "y"+String.valueOf(gogo);
+    		Log.d(TAG, "has y");
+    		Log.d(TAG, "and y="+jsonObj.getDouble("y"));
+    		double goy = jsonObj.getDouble("y");//*ymax;
+    		gogoStr = "y"+String.valueOf(goy);
     		gocode+=gogoStr;
     	}
     	if(jsonObj.has("z")) {
-    		gogo = jsonObj.getDouble("z");//*zmax;
-    		gogoStr = "z"+String.valueOf(gogo);
+    		double goz = jsonObj.getDouble("z");//*zmax;
+    		gogoStr = "z"+String.valueOf(goz);
     		gocode+=gogoStr;
     	}
     	if(jsonObj.has("a")) {
-    		gogo = jsonObj.getDouble("a");//*amax;
-    		gogoStr = "a"+String.valueOf(gogo);
+    		double goa = jsonObj.getDouble("a");//*amax;
+    		gogoStr = "a"+String.valueOf(goa);
     		gocode+=gogoStr;
     	}
     	gocode+="\"}\n";
