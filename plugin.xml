@@ -13,8 +13,12 @@
     <issue>https://github.com/nwags/froggy/issues</issue>
 
     <engines>
-        <engine name="cordova" version=">=2.9.0" />
+        <engine name="cordova" version=">=3.0.0" />
     </engines>
+
+    <!-- Load in the core background service -->
+	<dependency id="com.red_folder.phonegap.plugin.backgroundservice" url="https://github.com/Red-Folder/bgs-core.git"/>
+
 
     <js-module src="www/opentrons.js" name="opentrons">
         <clobbers target="window.opentrons" />
@@ -32,6 +36,9 @@
             target-dir="src/com/opentrons/otbtalpha/cordova"/>
         <source-file src="src/android/com/opentrons/otbtalpha/cordova/OTBTWorkerAlpha.java"
             target-dir="src/com/opentrons/otbtalpha/cordova"/>
+        <source-file src="src/android/com/opentrons/otbtalpha/cordova/OTBTServiceAlpha.java"
+            target-dir="src/com/opentrons/otbtalpha/cordova"/>
+        
 
         <!-- kludge for 2.9 -->
         <source-file src="src/android/org/apache/cordova/api/Dummy.java"
