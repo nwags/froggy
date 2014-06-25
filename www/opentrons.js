@@ -82,6 +82,16 @@ module.exports = {
 	
 	home: function (success, failure) {
 		cordova.exec(success, failure, "OTBTAlpha", "home", []);
+	},
+	
+	stop: function (success, failure) {
+		cordova.exec(success, failure, "OTBTAlpha", "stop", []);
+	},
+	
+	reset: function (success, failure) {
+		cordova.exec(success, failure, "OTBTAlpha", "reset", []);
 	}
+	
+	
     
 };
